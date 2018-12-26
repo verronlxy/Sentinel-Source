@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sentinel-core-1.3.0-GA-sources">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/sentinel-core-1.3.0-GA-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
