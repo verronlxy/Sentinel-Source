@@ -40,7 +40,7 @@ class CtEntry extends Entry {
         super(resourceWrapper);
         this.chain = chain;
         this.context = context;
-
+        //更新调用链
         setUpEntryFor(context);
     }
 
@@ -49,10 +49,12 @@ class CtEntry extends Entry {
         if (context instanceof NullContext) {
             return;
         }
+        //获取context的当前入口
         this.parent = context.getCurEntry();
         if (parent != null) {
             ((CtEntry)parent).child = this;
         }
+        //更新context的入口
         context.setCurEntry(this);
     }
 

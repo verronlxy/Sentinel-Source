@@ -52,6 +52,10 @@ public class ContextUtil {
     /**
      * Holds all {@link EntranceNode}.
      */
+    /**
+     * 维护入口节点列表，key-entranceNode name，value-entranceNode
+     * 使用volatile保证多线程下的可见性
+     */
     private static volatile Map<String, DefaultNode> contextNameNodeMap = new HashMap<String, DefaultNode>();
 
     private static final ReentrantLock LOCK = new ReentrantLock();
@@ -116,11 +120,26 @@ public class ContextUtil {
         return trueEnter(name, origin);
     }
 
+    /**
+     * 如果当前线程不存在context则新建context，否则则返回context
+     * @param name entrance node name（context name）
+     * @param origin invoker name
+     * @return
+     */
     protected static Context trueEnter(String name, String origin) {
+        //获取当前线程的上下文环境
         Context context = contextHolder.get();
+        /*
+         *创建context
+         *
+         */
         if (context == null) {
             Map<String, DefaultNode> localCacheNameMap = contextNameNodeMap;
             DefaultNode node = localCacheNameMap.get(name);
+            /*
+             *创建入口节点entranceNode
+             * 如果contextNameNodeMap超过了Constants.MAX_CONTEXT_NAME_SIZE（2000）则会返回NullContext
+             */
             if (node == null) {
                 if (localCacheNameMap.size() > Constants.MAX_CONTEXT_NAME_SIZE) {
                     setNullContext();
@@ -134,10 +153,13 @@ public class ContextUtil {
                                 setNullContext();
                                 return NULL_CONTEXT;
                             } else {
+                                //构造entranceNode
                                 node = new EntranceNode(new StringResourceWrapper(name, EntryType.IN), null);
                                 // Add entrance node.
+                                //entranceNode加入调用链的root节点下
                                 Constants.ROOT.addChild(node);
 
+                                //更新contextNameNodeMap
                                 Map<String, DefaultNode> newMap = new HashMap<String, DefaultNode>(
                                     contextNameNodeMap.size() + 1);
                                 newMap.putAll(contextNameNodeMap);

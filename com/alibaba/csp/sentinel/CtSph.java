@@ -122,6 +122,9 @@ public class CtSph implements Sph {
     public Entry entry(ResourceWrapper resourceWrapper, int count, Object... args) throws BlockException {
         //当前线程获取context
         Context context = ContextUtil.getContext();
+        /*
+         * 如果是NullContext，直接返回执行链（ProcessorSlot）为空的entry对象，不会有任何操作
+         */
         if (context instanceof NullContext) {
             // The {@link NullContext} indicates that the amount of context has exceeded the threshold,
             // so here init the entry only. No rule checking will be done.
