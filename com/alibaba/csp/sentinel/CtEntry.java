@@ -54,7 +54,11 @@ class CtEntry extends Entry {
         if (parent != null) {
             ((CtEntry)parent).child = this;
         }
-        //更新context的入口
+        /*
+         *更新context的当前entry对象
+         *资源入口（entry）是可以嵌套的，所以使用链表的结构来存储entry对象
+         *可以通过变量parent或者child变量获取资源入口的链路
+         */
         context.setCurEntry(this);
     }
 

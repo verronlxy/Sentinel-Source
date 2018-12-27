@@ -69,6 +69,18 @@ public class DefaultProcessorSlotChain extends ProcessorSlotChain {
         return first.getNext();
     }
 
+    /**
+     * first是AbstractLinkedProcessorSlot的子类,重写了entry和exit两个方法
+     * first.transformEntry里会执行重写的entry方法
+     * 重写的entry调用了父类的fireEntry方法，fireEntry就是通过AbstractLinkedProcessorSlot的链表遍历链表的Slot，并执行Slot的entry
+     * Slot的entry方法
+     * @param context         current {@link Context}
+     * @param resourceWrapper current resource
+     * @param t
+     * @param count           tokens needed
+     * @param args            parameters of the original call
+     * @throws Throwable
+     */
     @Override
     public void entry(Context context, ResourceWrapper resourceWrapper, Object t, int count, Object... args)
         throws Throwable {

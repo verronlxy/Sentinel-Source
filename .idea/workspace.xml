@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7af66c54-3003-4ce5-950c-b3a0710dae12" name="Default" comment="">
+    <list default="true" id="37851824-fbb6-4ffe-80a0-02fba26cb251" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/com/alibaba/csp/sentinel/CtEntry.java" afterPath="$PROJECT_DIR$/com/alibaba/csp/sentinel/CtEntry.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/com/alibaba/csp/sentinel/CtSph.java" afterPath="$PROJECT_DIR$/com/alibaba/csp/sentinel/CtSph.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/com/alibaba/csp/sentinel/context/ContextUtil.java" afterPath="$PROJECT_DIR$/com/alibaba/csp/sentinel/context/ContextUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/AbstractLinkedProcessorSlot.java" afterPath="$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/AbstractLinkedProcessorSlot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/DefaultProcessorSlotChain.java" afterPath="$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/DefaultProcessorSlotChain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/SlotChainProvider.java" afterPath="$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/SlotChainProvider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/com/alibaba/csp/sentinel/slots/DefaultSlotChainBuilder.java" afterPath="$PROJECT_DIR$/com/alibaba/csp/sentinel/slots/DefaultSlotChainBuilder.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,70 +24,11 @@
       <file leaf-file-name="CtSph.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/CtSph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="135" column="74" lean-forward="false" selection-start-line="135" selection-start-column="54" selection-end-line="135" selection-end-column="74" />
+            <state relative-caret-position="567">
+              <caret line="163" column="22" lean-forward="false" selection-start-line="163" selection-start-column="22" selection-end-line="163" selection-end-column="22" />
               <folding>
-                <element signature="e#9175#9176#0" expanded="true" />
-                <element signature="e#9229#9230#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ContextUtil.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/context/ContextUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="56" column="27" lean-forward="false" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
-              <folding>
-                <element signature="e#1763#1772#0" expanded="true" />
-                <element signature="e#2018#2039#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EntranceNode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/node/EntranceNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="40" column="11" lean-forward="false" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
-              <folding>
-                <element signature="e#1497#1498#0" expanded="true" />
-                <element signature="e#1535#1536#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DefaultNode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/node/DefaultNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="40" column="13" lean-forward="false" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="33" column="28" lean-forward="false" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NullContext.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/context/NullContext.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="28" column="11" lean-forward="false" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
-              <folding>
-                <element signature="e#990#991#0" expanded="true" />
-                <element signature="e#1042#1043#0" expanded="true" />
+                <element signature="e#9674#9675#0" expanded="true" />
+                <element signature="e#9728#9729#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -92,18 +37,8 @@
       <file leaf-file-name="CtEntry.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/CtEntry.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="53" column="17" lean-forward="false" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Entry.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/Entry.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="50" column="22" lean-forward="false" selection-start-line="50" selection-start-column="22" selection-end-line="50" selection-end-column="22" />
+            <state relative-caret-position="418">
+              <caret line="59" column="10" lean-forward="false" selection-start-line="59" selection-start-column="10" selection-end-line="59" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -112,11 +47,9 @@
       <file leaf-file-name="Context.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/context/Context.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="92" column="43" lean-forward="false" selection-start-line="92" selection-start-column="31" selection-end-line="92" selection-end-column="43" />
+            <state relative-caret-position="775">
+              <caret line="119" column="17" lean-forward="false" selection-start-line="119" selection-start-column="17" selection-end-line="119" selection-end-column="17" />
               <folding>
-                <element signature="e#2921#2922#0" expanded="true" />
-                <element signature="e#2968#2969#0" expanded="true" />
                 <element signature="e#3485#3486#0" expanded="true" />
                 <element signature="e#3516#3517#0" expanded="true" />
               </folding>
@@ -124,7 +57,160 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="ProcessorSlot.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/ProcessorSlot.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="38" column="11" lean-forward="false" selection-start-line="38" selection-start-column="11" selection-end-line="38" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="com.alibaba.csp.sentinel.slotchain.SlotChainBuilder" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/META-INF/services/com.alibaba.csp.sentinel.slotchain.SlotChainBuilder">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SlotChainBuilder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/SlotChainBuilder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DefaultSlotChainBuilder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slots/DefaultSlotChainBuilder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="35" column="36" lean-forward="false" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProcessorSlotChain.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/ProcessorSlotChain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="22" column="63" lean-forward="false" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DefaultProcessorSlotChain.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/DefaultProcessorSlotChain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="30" column="21" lean-forward="false" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractLinkedProcessorSlot.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/AbstractLinkedProcessorSlot.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+              <folding>
+                <element signature="e#2052#2053#0" expanded="true" />
+                <element signature="e#2084#2085#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NodeSelectorSlot.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slots/nodeselector/NodeSelectorSlot.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2462">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#6390#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Map.java" pinned="false" current-in-tab="false">
+        <entry file="jar://E:/Program Files/Java/jdk1.7.0_15/src.zip!/java/util/Map.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="199" column="6" lean-forward="false" selection-start-line="199" selection-start-column="6" selection-end-line="199" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SlotChainProvider.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/SlotChainProvider.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="545">
+              <caret line="60" column="28" lean-forward="false" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServiceLoader.java" pinned="false" current-in-tab="false">
+        <entry file="jar://E:/Program Files/Java/jdk1.7.0_15/src.zip!/java/util/ServiceLoader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="487">
+              <caret line="496" column="39" lean-forward="false" selection-start-line="496" selection-start-column="39" selection-end-line="496" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContextUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/context/ContextUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="377">
+              <caret line="159" column="43" lean-forward="false" selection-start-line="159" selection-start-column="43" selection-end-line="159" selection-end-column="43" />
+              <folding>
+                <element signature="e#9487#9488#0" expanded="true" />
+                <element signature="e#9529#9530#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="715">
+              <caret line="55" column="37" lean-forward="false" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NodeBuilder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/node/NodeBuilder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="28" column="16" lean-forward="false" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>ON</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -137,9 +223,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/com/alibaba/csp/sentinel/CtEntry.java" />
-        <option value="$PROJECT_DIR$/com/alibaba/csp/sentinel/CtSph.java" />
         <option value="$PROJECT_DIR$/com/alibaba/csp/sentinel/context/ContextUtil.java" />
+        <option value="$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/SlotChainProvider.java" />
+        <option value="$PROJECT_DIR$/com/alibaba/csp/sentinel/CtSph.java" />
+        <option value="$PROJECT_DIR$/com/alibaba/csp/sentinel/CtEntry.java" />
+        <option value="$PROJECT_DIR$/com/alibaba/csp/sentinel/slots/DefaultSlotChainBuilder.java" />
+        <option value="$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/DefaultProcessorSlotChain.java" />
+        <option value="$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/AbstractLinkedProcessorSlot.java" />
       </list>
     </option>
   </component>
@@ -148,11 +238,6 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="1" />
-    <option name="width" value="1036" />
-    <option name="height" value="733" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -183,7 +268,6 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -199,9 +283,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -209,11 +290,56 @@
               <item name="1.3.0-GA" type="b2602c69:ProjectViewProjectNode" />
               <item name="1.3.0-GA" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="1.3.0-GA" type="b2602c69:ProjectViewProjectNode" />
+              <item name="1.3.0-GA" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="1.3.0-GA" type="b2602c69:ProjectViewProjectNode" />
+              <item name="1.3.0-GA" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="1.3.0-GA" type="b2602c69:ProjectViewProjectNode" />
+              <item name="1.3.0-GA" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="alibaba" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="1.3.0-GA" type="b2602c69:ProjectViewProjectNode" />
+              <item name="1.3.0-GA" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="alibaba" type="462c0819:PsiDirectoryNode" />
+              <item name="csp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="1.3.0-GA" type="b2602c69:ProjectViewProjectNode" />
+              <item name="1.3.0-GA" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="alibaba" type="462c0819:PsiDirectoryNode" />
+              <item name="csp" type="462c0819:PsiDirectoryNode" />
+              <item name="sentinel" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="1.3.0-GA" type="b2602c69:ProjectViewProjectNode" />
+              <item name="1.3.0-GA" type="462c0819:PsiDirectoryNode" />
+              <item name="META-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="1.3.0-GA" type="b2602c69:ProjectViewProjectNode" />
+              <item name="1.3.0-GA" type="462c0819:PsiDirectoryNode" />
+              <item name="META-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -327,20 +453,21 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7af66c54-3003-4ce5-950c-b3a0710dae12" name="Default" comment="" />
-      <created>1545818445762</created>
+      <changelist id="37851824-fbb6-4ffe-80a0-02fba26cb251" name="Default" comment="" />
+      <created>1545896300167</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1545818445762</updated>
-      <workItem from="1545818447122" duration="4543000" />
+      <updated>1545896300167</updated>
+      <workItem from="1545896301896" duration="9772000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4543000" />
+    <option name="totallyTimeSpent" value="9772000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -351,11 +478,12 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32142857" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -366,7 +494,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -377,95 +504,171 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/DefaultProcessorSlotChain.java</url>
+          <line>30</line>
+          <properties />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/DefaultProcessorSlotChain.java</url>
+          <line>86</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="2" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/Entry.java">
+    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/context/ContextUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="50" column="22" lean-forward="false" selection-start-line="50" selection-start-column="22" selection-end-line="50" selection-end-column="22" />
+        <state relative-caret-position="377">
+          <caret line="159" column="43" lean-forward="false" selection-start-line="159" selection-start-column="43" selection-end-line="159" selection-end-column="43" />
+          <folding>
+            <element signature="e#9487#9488#0" expanded="true" />
+            <element signature="e#9529#9530#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="715">
+          <caret line="55" column="37" lean-forward="false" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/CtEntry.java">
+    <entry file="jar://E:/Program Files/Java/jdk1.7.0_15/src.zip!/java/util/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="53" column="17" lean-forward="false" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
+        <state relative-caret-position="297">
+          <caret line="199" column="6" lean-forward="false" selection-start-line="199" selection-start-column="6" selection-end-line="199" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/node/NodeBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="28" column="16" lean-forward="false" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/SlotChainBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/ProcessorSlotChain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="22" column="63" lean-forward="false" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/context/Context.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="92" column="43" lean-forward="false" selection-start-line="92" selection-start-column="31" selection-end-line="92" selection-end-column="43" />
+        <state relative-caret-position="775">
+          <caret line="119" column="17" lean-forward="false" selection-start-line="119" selection-start-column="17" selection-end-line="119" selection-end-column="17" />
           <folding>
-            <element signature="e#2921#2922#0" expanded="true" />
-            <element signature="e#2968#2969#0" expanded="true" />
             <element signature="e#3485#3486#0" expanded="true" />
             <element signature="e#3516#3517#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/CtEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="59" column="10" lean-forward="false" selection-start-line="59" selection-start-column="10" selection-end-line="59" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/CtSph.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="135" column="74" lean-forward="false" selection-start-line="135" selection-start-column="54" selection-end-line="135" selection-end-column="74" />
+        <state relative-caret-position="567">
+          <caret line="163" column="22" lean-forward="false" selection-start-line="163" selection-start-column="22" selection-end-line="163" selection-end-column="22" />
           <folding>
-            <element signature="e#9175#9176#0" expanded="true" />
-            <element signature="e#9229#9230#0" expanded="true" />
+            <element signature="e#9674#9675#0" expanded="true" />
+            <element signature="e#9728#9729#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/node/DefaultNode.java">
+    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/ProcessorSlot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="40" column="13" lean-forward="false" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+        <state relative-caret-position="273">
+          <caret line="38" column="11" lean-forward="false" selection-start-line="38" selection-start-column="11" selection-end-line="38" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/Constants.java">
+    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slots/nodeselector/NodeSelectorSlot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="33" column="28" lean-forward="false" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
+        <state relative-caret-position="-2462">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#6390#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/META-INF/services/com.alibaba.csp.sentinel.slotchain.SlotChainBuilder">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="54" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/context/NullContext.java">
+    <entry file="jar://E:/Program Files/Java/jdk1.7.0_15/src.zip!/java/util/ServiceLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="28" column="11" lean-forward="false" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
-          <folding>
-            <element signature="e#990#991#0" expanded="true" />
-            <element signature="e#1042#1043#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="487">
+          <caret line="496" column="39" lean-forward="false" selection-start-line="496" selection-start-column="39" selection-end-line="496" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/node/EntranceNode.java">
+    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slots/DefaultSlotChainBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="40" column="11" lean-forward="false" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
-          <folding>
-            <element signature="e#1497#1498#0" expanded="true" />
-            <element signature="e#1535#1536#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="242">
+          <caret line="35" column="36" lean-forward="false" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/context/ContextUtil.java">
+    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/DefaultProcessorSlotChain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="56" column="27" lean-forward="false" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
+        <state relative-caret-position="266">
+          <caret line="30" column="21" lean-forward="false" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/SlotChainProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="545">
+          <caret line="60" column="28" lean-forward="false" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com/alibaba/csp/sentinel/slotchain/AbstractLinkedProcessorSlot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
           <folding>
-            <element signature="e#1763#1772#0" expanded="true" />
-            <element signature="e#2018#2039#0" expanded="true" />
+            <element signature="e#2052#2053#0" expanded="true" />
+            <element signature="e#2084#2085#0" expanded="true" />
           </folding>
         </state>
       </provider>

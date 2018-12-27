@@ -35,6 +35,12 @@ import com.alibaba.csp.sentinel.slots.system.SystemSlot;
  */
 public class DefaultSlotChainBuilder implements SlotChainBuilder {
 
+    /**
+     * SlotChainBuilder是按照spi原则实现的，可以实现自己SlotChainBuilder，扩展执行链
+     * DefaultSlotChainBuilder提供了构造默认执行链的方法
+     * DefaultProcessorSlotChain执行链内部维护了一个AbstractLinkedProcessorSlot链表对象，addLast方法会将各个类型的Slot添加到链表的尾部
+     * @return
+     */
     @Override
     public ProcessorSlotChain build() {
         ProcessorSlotChain chain = new DefaultProcessorSlotChain();

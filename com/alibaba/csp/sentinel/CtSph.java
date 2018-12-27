@@ -133,6 +133,9 @@ public class CtSph implements Sph {
 
         if (context == null) {
             // Using default context.
+            /*
+             *创建context(extranceNode,nodeName,origin)，更新调用链root->entranceNode
+             */
             context = MyContextUtil.myEnter(Constants.CONTEXT_DEFAULT_NAME, "", resourceWrapper.getType());
         }
 
@@ -141,6 +144,7 @@ public class CtSph implements Sph {
             return new CtEntry(resourceWrapper, null, context);
         }
 
+        //获取资源的执行链
         ProcessorSlot<Object> chain = lookProcessChain(resourceWrapper);
 
         /*
@@ -153,6 +157,10 @@ public class CtSph implements Sph {
 
         Entry e = new CtEntry(resourceWrapper, chain, context);
         try {
+            /**
+             * 此处将会执行执行链的各种Slot，开始执行资源的统计，限流，熔断等逻辑
+             * 默认情况下会调用{@link DefaultProcessorSlotChain}entry方法
+             */
             chain.entry(context, resourceWrapper, null, count, args);
         } catch (BlockException e1) {
             e.exit(count, args);
@@ -179,6 +187,13 @@ public class CtSph implements Sph {
      * @param resourceWrapper target resource
      * @return {@link ProcessorSlotChain} of the resource
      */
+    /**
+     * 获取资源的执行链
+     * 资源的执行链维护了各种Slot，资源的统计，限流，降级等都是这些Slot实现的
+     * 如果chainMap没有当前资源的执行链则新建并返回，否则直接返回资源对应的执行链
+     * @param resourceWrapper
+     * @return
+     */
     ProcessorSlot<Object> lookProcessChain(ResourceWrapper resourceWrapper) {
         ProcessorSlotChain chain = chainMap.get(resourceWrapper);
         if (chain == null) {
@@ -190,6 +205,7 @@ public class CtSph implements Sph {
                         return null;
                     }
 
+                    //获取执行链，并更新chainMap集合，添加资源的执行链
                     chain = SlotChainProvider.newSlotChain();
                     Map<ResourceWrapper, ProcessorSlotChain> newMap = new HashMap<ResourceWrapper, ProcessorSlotChain>(
                         chainMap.size() + 1);

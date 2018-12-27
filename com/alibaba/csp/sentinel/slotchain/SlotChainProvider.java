@@ -40,20 +40,38 @@ public final class SlotChainProvider {
      *
      * @return new created slot chain
      */
+    /**
+     * 获取执行链实例ProcessorSlotChain
+     * SlotChainBuilder用于构造ProcessorSlotChain
+     * 如果SlotChainBuilder实例builder不为空，否则进行resolveSlotChainBuilder()进行实例化builder
+     * @return
+     */
     public static ProcessorSlotChain newSlotChain() {
         if (builder != null) {
             return builder.build();
         }
-
+        //注入builder变量
         resolveSlotChainBuilder();
 
         if (builder == null) {
             RecordLog.warn("[SlotChainProvider] Wrong state when resolving slot chain builder, using default");
             builder = new DefaultSlotChainBuilder();
         }
+        //构建执行链ProcessorSlotChain
         return builder.build();
     }
 
+    /**
+     * 实例化SlotChainBuilder
+     * SlotChainBuilder遵循spi的原则，ServerLoader获取META-INF/services/com.alibaba.csp.sentinel.slotchain.SlotChainBuilder下SlotChainBuilder的所有实现类
+     * 默认的com.alibaba.csp.sentinel.slotchain.SlotChainBuilder文件内容（默认实现类的全限定名）如下
+     *com.alibaba.csp.sentinel.slots.DefaultSlotChainBuilder
+     *
+     * 可以在com.alibaba.csp.sentinel.slotchain.SlotChainBuilder文件加入自己的SlotChainBuilder实现类
+     *
+     * 如果有多个SlotChainBuilder的实现类，默认只有第一个生效，注入到builder变量中，否则默认返回实例化DefaultSlotChainBuilder注入builder变量
+     *
+     */
     private static void resolveSlotChainBuilder() {
         List<SlotChainBuilder> list = new ArrayList<SlotChainBuilder>();
         boolean hasOther = false;
