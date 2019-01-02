@@ -15,9 +15,6 @@
  */
 package com.alibaba.csp.sentinel.slots.nodeselector;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.alibaba.csp.sentinel.Env;
 import com.alibaba.csp.sentinel.context.Context;
 import com.alibaba.csp.sentinel.context.ContextUtil;
@@ -26,6 +23,9 @@ import com.alibaba.csp.sentinel.node.DefaultNode;
 import com.alibaba.csp.sentinel.node.EntranceNode;
 import com.alibaba.csp.sentinel.slotchain.AbstractLinkedProcessorSlot;
 import com.alibaba.csp.sentinel.slotchain.ResourceWrapper;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * </p>
@@ -130,6 +130,17 @@ public class NodeSelectorSlot extends AbstractLinkedProcessorSlot<Object> {
      */
     private volatile Map<String, DefaultNode> map = new HashMap<String, DefaultNode>(10);
 
+    /**
+     * NodeSelectorSlot entry主要是维护一个入口节点的map
+     * 更新{@link Context} 的entranceNode的链表
+     * 更新context维护的curEntry{@link com.alibaba.csp.sentinel.Entry} 的curNode的链表
+     * @param context         current {@link Context}
+     * @param resourceWrapper current resource
+     * @param obj
+     * @param count           tokens needed
+     * @param args            parameters of the original call
+     * @throws Throwable
+     */
     @Override
     public void entry(Context context, ResourceWrapper resourceWrapper, Object obj, int count, Object... args)
         throws Throwable {

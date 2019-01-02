@@ -15,11 +15,6 @@
  */
 package com.alibaba.csp.sentinel.slots.block.degrade;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.alibaba.csp.sentinel.concurrent.NamedThreadFactory;
 import com.alibaba.csp.sentinel.context.Context;
 import com.alibaba.csp.sentinel.node.ClusterNode;
@@ -27,6 +22,11 @@ import com.alibaba.csp.sentinel.node.DefaultNode;
 import com.alibaba.csp.sentinel.slots.block.AbstractRule;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.clusterbuilder.ClusterBuilderSlot;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * <p>
@@ -160,6 +160,15 @@ public class DegradeRule extends AbstractRule {
         return result;
     }
 
+    /**
+     * 检查熔断条件
+     *
+     * @param context current {@link Context}
+     * @param node    current {@link com.alibaba.csp.sentinel.node.Node}
+     * @param acquireCount
+     * @param args    arguments of the original invocation.
+     * @return
+     */
     @Override
     public boolean passCheck(Context context, DefaultNode node, int acquireCount, Object... args) {
         if (cut) {
@@ -170,7 +179,14 @@ public class DegradeRule extends AbstractRule {
         if (clusterNode == null) {
             return true;
         }
-
+        /*
+         * 降级策略:平均时长降级
+         * 如果连续>=RT_MAX_EXCEED_N（默认5）次出现avgRt>count，则会触发降级策略
+         * 实际如果avgRt>countl了，正常来讲接下来的5次也是满足avgRt>count，也就会触发降级测了，以下这段代码的意义就不是很大了
+         * if (passCount.incrementAndGet() < RT_MAX_EXCEED_N) {
+                return true;
+            }
+         */
         if (grade == RuleConstant.DEGRADE_GRADE_RT) {
             double rt = clusterNode.avgRt();
             if (rt < this.count) {
@@ -182,7 +198,12 @@ public class DegradeRule extends AbstractRule {
             if (passCount.incrementAndGet() < RT_MAX_EXCEED_N) {
                 return true;
             }
-        } else if (grade == RuleConstant.DEGRADE_GRADE_EXCEPTION_RATIO) {
+        }
+         /*
+         * 降级策略:异常比率降级
+         * 如果exception / success < count，则会触发降级策略
+         */
+        else if (grade == RuleConstant.DEGRADE_GRADE_EXCEPTION_RATIO) {
             double exception = clusterNode.exceptionQps();
             double success = clusterNode.successQps();
             long total = clusterNode.totalQps();
@@ -199,13 +220,26 @@ public class DegradeRule extends AbstractRule {
             if (exception / success < count) {
                 return true;
             }
-        } else if (grade == RuleConstant.DEGRADE_GRADE_EXCEPTION_COUNT) {
+        }
+
+        /*
+         * 降级策略:异常数降级
+         * 如果exception < count，则会触发降级策略
+         * exception是发送业务异常时才会统计，BlockException（限流、降级）不会纳入统计
+         */
+        else if (grade == RuleConstant.DEGRADE_GRADE_EXCEPTION_COUNT) {
             double exception = clusterNode.totalException();
             if (exception < count) {
                 return true;
             }
         }
 
+        /*
+         * 降级实施逻辑
+         * 触发降级规则后，在timeWindow时间内会保持cut开关为true，并设置this.passCount为0
+         * resetTask会在timeWindow后定时reset cut状态，置cut为false,关闭降级
+         *
+         */
         synchronized (lock) {
             if (!cut) {
                 // Automatically degrade.
@@ -213,7 +247,6 @@ public class DegradeRule extends AbstractRule {
                 ResetTask resetTask = new ResetTask(this);
                 pool.schedule(resetTask, timeWindow, TimeUnit.SECONDS);
             }
-
             return false;
         }
     }

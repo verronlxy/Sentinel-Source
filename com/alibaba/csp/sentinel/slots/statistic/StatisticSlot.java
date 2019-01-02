@@ -45,12 +45,18 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
  * @author jialiang.linjl
  * @author Eric Zhao
  */
+
+/**
+ * 统计功能的Slot
+ * 该Slot虽然{@link com.alibaba.csp.sentinel.slots.DefaultSlotChainBuilder}build()中不是放在执行链表的最后，但实际是最后执行的
+ */
 public class StatisticSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
 
     @Override
     public void entry(Context context, ResourceWrapper resourceWrapper, DefaultNode node, int count, Object... args)
         throws Throwable {
         try {
+            //先执行下个Slot节点的entry
             fireEntry(context, resourceWrapper, node, count, args);
             node.increaseThreadNum();
             node.addPassRequest();
@@ -69,6 +75,11 @@ public class StatisticSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
                 handler.onPass(context, resourceWrapper, node, count, args);
             }
         } catch (BlockException e) {
+            /*
+             * 限流或者降级都会抛出BlockException
+             * 此处记录异常统计和失败次数统计
+             */
+
             context.getCurEntry().setError(e);
 
             // Add block count.
@@ -81,12 +92,18 @@ public class StatisticSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
                 Constants.ENTRY_NODE.increaseBlockQps();
             }
 
+            //失败回调
             for (ProcessorSlotEntryCallback<DefaultNode> handler : StatisticSlotCallbackRegistry.getEntryCallbacks()) {
                 handler.onBlocked(e, context, resourceWrapper, node, count, args);
             }
 
             throw e;
         } catch (Throwable e) {
+            /*
+             * 非BlockException异常情况统计
+             * 一般是业务异常，这种情况下没有失败回调
+             */
+
             context.getCurEntry().setError(e);
 
             // Should not happen
@@ -106,6 +123,9 @@ public class StatisticSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
     public void exit(Context context, ResourceWrapper resourceWrapper, int count, Object... args) {
         DefaultNode node = (DefaultNode)context.getCurNode();
 
+        /*
+         * 抛出BlockException才会context.getCurEntry().getError()!=null
+         */
         if (context.getCurEntry().getError() == null) {
             long rt = TimeUtil.currentTimeMillis() - context.getCurEntry().getCreateTime();
             if (rt > Constants.TIME_DROP_VALVE) {

@@ -33,8 +33,16 @@ public class DefaultController implements Controller {
         this.grade = grade;
     }
 
+    /**
+     * 控制请求是否通过，通过true，否则false，根据StatisticNode统计信息计算
+     * 计算qps或者单位时间的线程数量是不是超过限流的阀值
+     * @param node
+     * @param acquireCount
+     * @return
+     */
     @Override
     public boolean canPass(Node node, int acquireCount) {
+        //已经通过的threadCount或者qps
         int curCount = avgUsedTokens(node);
         if (curCount + acquireCount > count) {
             return false;

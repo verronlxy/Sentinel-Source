@@ -20,9 +20,9 @@ import com.alibaba.csp.sentinel.context.Context;
 /**
  * AbstractLinkedProcessorSlot是一个链表对象
  * 内部维护了一个指向下一个AbstractLinkedProcessorSlot节点的next变量
- * 链表的节点是统计，限流，熔断等功能的具体Slot
+ * 链表的节点是具有统计、限流、熔断等功能的Slot
  * 通过next.transformEntry(context, resourceWrapper, obj, count, args)执行具体Slot的entry，实现统计、限流、熔断等逻辑。
- * 通过fireEntry来遍历具体Slot节点
+ * 具体的Slot又会调用父类（AbstractLinkedProcessorSlot）的fireEntry，形成执行链，逐个执行Slot
  * @author qinan.qn
  * @author jialiang.linjl
  */

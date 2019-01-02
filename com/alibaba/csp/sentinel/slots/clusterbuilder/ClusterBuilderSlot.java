@@ -45,6 +45,7 @@ import com.alibaba.csp.sentinel.slotchain.StringResourceWrapper;
  *
  * @author jialiang.linjl
  */
+
 public class ClusterBuilderSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
 
     /**
@@ -73,6 +74,18 @@ public class ClusterBuilderSlot extends AbstractLinkedProcessorSlot<DefaultNode>
 
     private ClusterNode clusterNode = null;
 
+    /**
+     * 创建clusterNode，并更新clusterNodeMap
+     * 设置node（entranceNode）的clusterNode
+     * 如果origin不为空，clusterNode则创建originNode节点，originNode实际是{@link com.alibaba.csp.sentinel.node.StatisticNode}类型
+     * 如果创建了originNode则更新context上下文环境的originNode，标识调用者节点
+     * @param context         current {@link Context}
+     * @param resourceWrapper current resource
+     * @param node
+     * @param count           tokens needed
+     * @param args            parameters of the original call
+     * @throws Throwable
+     */
     @Override
     public void entry(Context context, ResourceWrapper resourceWrapper, DefaultNode node, int count, Object... args)
         throws Throwable {
@@ -124,6 +137,11 @@ public class ClusterBuilderSlot extends AbstractLinkedProcessorSlot<DefaultNode>
      *
      * @param id resource name.
      * @return the {@link ClusterNode}.
+     */
+    /**
+     * 获取resource clusterNode
+     * @param id
+     * @return
      */
     public static ClusterNode getClusterNode(String id) {
         if (id == null) {

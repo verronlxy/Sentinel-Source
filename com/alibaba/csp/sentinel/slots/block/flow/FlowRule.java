@@ -168,11 +168,25 @@ public class FlowRule extends AbstractRule {
         return controller.canPass(selectedNode, acquireCount);
     }
 
+    /**
+     * 根据限流策略返回要限流的节点对象
+     * @param origin
+     * @param context
+     * @param node
+     * @return
+     */
     private Node selectNodeByRequesterAndStrategy(String origin, Context context, DefaultNode node) {
         // The limit app should not be empty.
         String limitApp = this.getLimitApp();
 
+        /*
+         * 根据调用者origin限流
+         */
         if (limitApp.equals(origin)) {
+            /*
+             * 限流策略-直接限流
+             * 返回调用者节点
+             */
             if (strategy == RuleConstant.STRATEGY_DIRECT) {
                 return context.getOriginNode();
             }
@@ -181,11 +195,18 @@ public class FlowRule extends AbstractRule {
             if (StringUtil.isEmpty(refResource)) {
                 return null;
             }
-
+            /*
+             * 限流策略-关联流量限流
+             * 返回关联节点clusterNode
+             */
             if (strategy == RuleConstant.STRATEGY_RELATE) {
                 return ClusterBuilderSlot.getClusterNode(refResource);
             }
 
+            /*
+             * 限流策略-调用链限流
+             * 返回当前节点
+             */
             if (strategy == RuleConstant.STRATEGY_CHAIN) {
                 if (!refResource.equals(context.getName())) {
                     return null;
@@ -193,7 +214,11 @@ public class FlowRule extends AbstractRule {
                 return node;
             }
 
-        } else if (RuleConstant.LIMIT_APP_DEFAULT.equals(limitApp)) {
+        }
+        /*
+         * default任何调用者都会限流
+         */
+        else if (RuleConstant.LIMIT_APP_DEFAULT.equals(limitApp)) {
             if (strategy == RuleConstant.STRATEGY_DIRECT) {
                 return node.getClusterNode();
             }
@@ -213,7 +238,11 @@ public class FlowRule extends AbstractRule {
                 return node;
             }
 
-        } else if (RuleConstant.LIMIT_APP_OTHER.equals(limitApp) && FlowRuleManager.isOtherOrigin(origin, getResource())) {
+        }
+        /*
+         * other除origin外的调用者都会限流
+         */
+        else if (RuleConstant.LIMIT_APP_OTHER.equals(limitApp) && FlowRuleManager.isOtherOrigin(origin, getResource())) {
             if (strategy == RuleConstant.STRATEGY_DIRECT) {
                 return context.getOriginNode();
             }

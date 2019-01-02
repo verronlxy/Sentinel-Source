@@ -92,11 +92,15 @@ public abstract class LeapArray<T> {
      * @return the window at provided timestamp
      */
     public WindowWrap<T> currentWindow(long time) {
+        //每个windowLengthInMs间隔timeId新增1
         long timeId = time / windowLengthInMs;
         // Calculate current index.
         int idx = (int)(timeId % array.length());
 
         // Cut the time to current window start.
+        /*
+         * 计算窗口的开始时间,窗口的开始时间是windowLengthInMs的整数倍，采取较小原则，所以是time - time % windowLengthInMs
+         */
         time = time - time % windowLengthInMs;
 
         while (true) {
