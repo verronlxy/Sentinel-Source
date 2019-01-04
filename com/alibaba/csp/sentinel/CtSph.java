@@ -155,6 +155,9 @@ public class CtSph implements Sph {
             return new CtEntry(resourceWrapper, null, context);
         }
 
+        /*
+         * 创建Entry对象
+         */
         Entry e = new CtEntry(resourceWrapper, chain, context);
         try {
             /**

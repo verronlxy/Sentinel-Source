@@ -36,6 +36,15 @@ class CtEntry extends Entry {
     protected ProcessorSlot<Object> chain;
     protected Context context;
 
+    /**
+     * 创建CtEntry对象主要做了两件事
+     * 1、设置成员变量context、chain
+     * 2、更新entry链（成员变量parent，child）
+     * 3、设置context的当前entry
+     * @param resourceWrapper
+     * @param chain
+     * @param context
+     */
     CtEntry(ResourceWrapper resourceWrapper, ProcessorSlot<Object> chain, Context context) {
         super(resourceWrapper);
         this.chain = chain;

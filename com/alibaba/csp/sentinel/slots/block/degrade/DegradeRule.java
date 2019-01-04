@@ -171,6 +171,9 @@ public class DegradeRule extends AbstractRule {
      */
     @Override
     public boolean passCheck(Context context, DefaultNode node, int acquireCount, Object... args) {
+        /*
+         * 检测降级开关已打开，cut为true时，降级已打开，对该资源的请求将被拒绝
+         */
         if (cut) {
             return false;
         }

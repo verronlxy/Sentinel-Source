@@ -15,10 +15,6 @@
  */
 package com.alibaba.csp.sentinel.context;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
-
 import com.alibaba.csp.sentinel.Constants;
 import com.alibaba.csp.sentinel.EntryType;
 import com.alibaba.csp.sentinel.SphO;
@@ -29,6 +25,10 @@ import com.alibaba.csp.sentinel.node.EntranceNode;
 import com.alibaba.csp.sentinel.node.Node;
 import com.alibaba.csp.sentinel.slotchain.StringResourceWrapper;
 import com.alibaba.csp.sentinel.slots.nodeselector.NodeSelectorSlot;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Utility class to get or create {@link Context} in current thread.
@@ -122,6 +122,7 @@ public class ContextUtil {
 
     /**
      * 如果当前线程不存在context则新建context，否则则返回context
+     * 创建context的主要工作是创建entranceNode节点
      * @param name entrance node name（context name）
      * @param origin invoker name
      * @return
@@ -130,14 +131,14 @@ public class ContextUtil {
         //获取当前线程的上下文环境
         Context context = contextHolder.get();
         /*
-         *创建context
+         * 创建context
          *
          */
         if (context == null) {
             Map<String, DefaultNode> localCacheNameMap = contextNameNodeMap;
             DefaultNode node = localCacheNameMap.get(name);
             /*
-             *创建入口节点entranceNode
+             * 创建入口节点entranceNode
              * 如果contextNameNodeMap超过了Constants.MAX_CONTEXT_NAME_SIZE（2000）则会返回NullContext
              */
             if (node == null) {
