@@ -15,12 +15,11 @@
  */
 package com.alibaba.csp.sentinel.slots.block.flow.controller;
 
-import java.util.concurrent.atomic.AtomicLong;
-
-import com.alibaba.csp.sentinel.slots.block.flow.Controller;
-
-import com.alibaba.csp.sentinel.util.TimeUtil;
 import com.alibaba.csp.sentinel.node.Node;
+import com.alibaba.csp.sentinel.slots.block.flow.Controller;
+import com.alibaba.csp.sentinel.util.TimeUtil;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author jialiang.linjl
@@ -36,6 +35,13 @@ public class PaceController implements Controller {
         this.count = count;
     }
 
+    /**
+     * 限流-匀速启动
+     * 当达到限流条件时，不会直接拒绝请求，而是将计算等待时间进行sleep
+     * @param node
+     * @param acquireCount
+     * @return
+     */
     @Override
     public boolean canPass(Node node, int acquireCount) {
 

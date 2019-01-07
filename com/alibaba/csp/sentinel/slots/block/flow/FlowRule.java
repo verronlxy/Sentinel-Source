@@ -15,13 +15,13 @@
  */
 package com.alibaba.csp.sentinel.slots.block.flow;
 
-import com.alibaba.csp.sentinel.util.StringUtil;
 import com.alibaba.csp.sentinel.context.Context;
 import com.alibaba.csp.sentinel.node.DefaultNode;
 import com.alibaba.csp.sentinel.node.Node;
 import com.alibaba.csp.sentinel.slots.block.AbstractRule;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.clusterbuilder.ClusterBuilderSlot;
+import com.alibaba.csp.sentinel.util.StringUtil;
 
 /***
  * <p>
@@ -154,6 +154,10 @@ public class FlowRule extends AbstractRule {
 
     @Override
     public boolean passCheck(Context context, DefaultNode node, int acquireCount, Object... args) {
+        /*
+         * 如果limitApp为空则不会执行限流策略
+         * 正常情况下limitApp不会为空，默认值default
+         */
         String limitApp = this.getLimitApp();
         if (limitApp == null) {
             return true;

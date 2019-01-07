@@ -131,9 +131,10 @@ public class NodeSelectorSlot extends AbstractLinkedProcessorSlot<Object> {
     private volatile Map<String, DefaultNode> map = new HashMap<String, DefaultNode>(10);
 
     /**
-     * NodeSelectorSlot entry主要是维护一个入口节点的map
+     * NodeSelectorSlot entry()主要是维护一个DefaultNode节点（资源节点，每个入口节点都会对应一个资源节点）的map
+     * 如果map不存在对应context的DefaultNode则创建一个id为resourceWrapper的DefaultNode
      * 更新{@link Context} 的entranceNode的链表
-     * 更新context维护的curEntry{@link com.alibaba.csp.sentinel.Entry} 的curNode的链表
+     * 更新context维护的curEntry{@link com.alibaba.csp.sentinel.Entry} 的curNode
      * @param context         current {@link Context}
      * @param resourceWrapper current resource
      * @param obj

@@ -15,22 +15,18 @@
  */
 package com.alibaba.csp.sentinel.slots.clusterbuilder;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.alibaba.csp.sentinel.Env;
 import com.alibaba.csp.sentinel.EntryType;
+import com.alibaba.csp.sentinel.Env;
 import com.alibaba.csp.sentinel.context.Context;
 import com.alibaba.csp.sentinel.context.ContextUtil;
-import com.alibaba.csp.sentinel.node.ClusterNode;
-import com.alibaba.csp.sentinel.node.DefaultNode;
-import com.alibaba.csp.sentinel.node.IntervalProperty;
-import com.alibaba.csp.sentinel.node.Node;
-import com.alibaba.csp.sentinel.node.SampleCountProperty;
+import com.alibaba.csp.sentinel.node.*;
 import com.alibaba.csp.sentinel.slotchain.AbstractLinkedProcessorSlot;
 import com.alibaba.csp.sentinel.slotchain.ProcessorSlotChain;
 import com.alibaba.csp.sentinel.slotchain.ResourceWrapper;
 import com.alibaba.csp.sentinel.slotchain.StringResourceWrapper;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -76,7 +72,8 @@ public class ClusterBuilderSlot extends AbstractLinkedProcessorSlot<DefaultNode>
 
     /**
      * 创建clusterNode，并更新clusterNodeMap
-     * 设置node（entranceNode）的clusterNode
+     * 设置资源节点node的clusterNode
+     * clusterNode主要用于通过父类的方式进行QPS、异常、线程数等统计。
      * 如果origin不为空，clusterNode则创建originNode节点，originNode实际是{@link com.alibaba.csp.sentinel.node.StatisticNode}类型
      * 如果创建了originNode则更新context上下文环境的originNode，标识调用者节点
      * @param context         current {@link Context}

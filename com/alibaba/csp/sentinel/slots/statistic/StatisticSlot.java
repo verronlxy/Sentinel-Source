@@ -56,8 +56,11 @@ public class StatisticSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
     public void entry(Context context, ResourceWrapper resourceWrapper, DefaultNode node, int count, Object... args)
         throws Throwable {
         try {
-            //先执行下个Slot节点的entry
-            fireEntry(context, resourceWrapper, node, count, args);
+            /*
+             * 先执行下个Slot节点的entry
+             * 通过entry()的责任链执行，StatisticSlot entry()是放在最后执行的
+             */
+            fireEntry(context, resourceWrapper , node, count, args);
             node.increaseThreadNum();
             node.addPassRequest();
 

@@ -115,7 +115,7 @@ public class FlowSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
         throws Throwable {
         /*
          * 如果触发限流的条件，则抛出异常回到StatisticSlot
-         * fireEntry不会被执行，则ProcessorSlotChain执行链的其余Slot将不会被执行
+         * fireEntry不会被执行，则ProcessorSlotChain执行链的剩余Slot将不会被执行
          */
         FlowRuleManager.checkFlow(resourceWrapper, context, node, count);
 

@@ -97,6 +97,10 @@ public class FlowRuleManager {
      *
      * @param rules new rules to load.
      */
+    /**
+     * 加载规则时，实际是DynamicSentinelProperty的updateValue(rules)，如果属性变动的话，则会通知listener进行重新加载规则
+     * @param rules
+     */
     public static void loadRules(List<FlowRule> rules) {
         currentProperty.updateValue(rules);
     }

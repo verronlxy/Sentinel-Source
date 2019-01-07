@@ -15,11 +15,11 @@
  */
 package com.alibaba.csp.sentinel.property;
 
+import com.alibaba.csp.sentinel.log.RecordLog;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.alibaba.csp.sentinel.log.RecordLog;
 
 public class DynamicSentinelProperty<T> implements SentinelProperty<T> {
 
@@ -53,6 +53,10 @@ public class DynamicSentinelProperty<T> implements SentinelProperty<T> {
         RecordLog.info("[DynamicSentinelProperty] Config will be updated to: " + newValue);
 
         value = newValue;
+        /*
+         * 如果属性变动将会触发所有的listener进行加载
+         * 此处可以自己重写DynamicSentinelProperty updateValue()来做一些规则发生变化时的处理
+         */
         for (PropertyListener<T> listener : listeners) {
             listener.configUpdate(newValue);
         }
