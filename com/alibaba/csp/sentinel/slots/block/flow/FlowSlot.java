@@ -122,6 +122,14 @@ public class FlowSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
         fireEntry(context, resourceWrapper, node, count, args);
     }
 
+
+    /**
+     * 不做操作，调用父类的退出方法，执行下一个Slot的exit操作
+     * @param context         current {@link Context}
+     * @param resourceWrapper current resource
+     * @param count           tokens needed
+     * @param args            parameters of the original call
+     */
     @Override
     public void exit(Context context, ResourceWrapper resourceWrapper, int count, Object... args) {
         fireExit(context, resourceWrapper, count, args);

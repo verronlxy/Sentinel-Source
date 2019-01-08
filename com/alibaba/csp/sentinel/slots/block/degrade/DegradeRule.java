@@ -178,6 +178,9 @@ public class DegradeRule extends AbstractRule {
             return false;
         }
 
+        /*
+         * 获取节点的统计信息
+         */
         ClusterNode clusterNode = ClusterBuilderSlot.getClusterNode(this.getResource());
         if (clusterNode == null) {
             return true;
@@ -185,7 +188,7 @@ public class DegradeRule extends AbstractRule {
         /*
          * 降级策略:平均时长降级
          * 如果连续>=RT_MAX_EXCEED_N（默认5）次出现avgRt>count，则会触发降级策略
-         * 实际如果avgRt>countl了，正常来讲接下来的5次也是满足avgRt>count，也就会触发降级测了，以下这段代码的意义就不是很大了
+         * 实际如果avgRt>count了，正常来讲接下来的5次也是满足avgRt>count，也就会触发降级测了，以下这段代码的意义就不是很大了
          * if (passCount.incrementAndGet() < RT_MAX_EXCEED_N) {
                 return true;
             }

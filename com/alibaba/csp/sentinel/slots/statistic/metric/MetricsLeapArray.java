@@ -26,6 +26,11 @@ import com.alibaba.csp.sentinel.slots.statistic.base.WindowWrap;
  * @author jialiang.linjl
  * @author Eric Zhao
  */
+
+/**
+ * MetricsLeapArray适用于存放请求的统计信息，底层使用{@link LeapArray}的时间窗口来实现
+ * MetricsLeapArray的元数据是{@link MetricBucket}，MetricBucket定义了统计指标的信息，如pass、exception、qps、block、rt、success
+ */
 public class MetricsLeapArray extends LeapArray<MetricBucket> {
 
     /**

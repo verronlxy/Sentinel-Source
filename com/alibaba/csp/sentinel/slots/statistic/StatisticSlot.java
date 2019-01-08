@@ -15,19 +15,18 @@
  */
 package com.alibaba.csp.sentinel.slots.statistic;
 
-import java.util.Collection;
-
-import com.alibaba.csp.sentinel.slotchain.ProcessorSlotEntryCallback;
-import com.alibaba.csp.sentinel.slotchain.ProcessorSlotExitCallback;
-import com.alibaba.csp.sentinel.util.TimeUtil;
 import com.alibaba.csp.sentinel.Constants;
 import com.alibaba.csp.sentinel.EntryType;
 import com.alibaba.csp.sentinel.context.Context;
-import com.alibaba.csp.sentinel.node.ClusterNode;
 import com.alibaba.csp.sentinel.node.DefaultNode;
 import com.alibaba.csp.sentinel.slotchain.AbstractLinkedProcessorSlot;
+import com.alibaba.csp.sentinel.slotchain.ProcessorSlotEntryCallback;
+import com.alibaba.csp.sentinel.slotchain.ProcessorSlotExitCallback;
 import com.alibaba.csp.sentinel.slotchain.ResourceWrapper;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.alibaba.csp.sentinel.util.TimeUtil;
+
+import java.util.Collection;
 
 /**
  * <p>
@@ -58,13 +57,22 @@ public class StatisticSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
         try {
             /*
              * 先执行下个Slot节点的entry
-             * 通过entry()的责任链执行，StatisticSlot entry()是放在最后执行的
+             * entry()的责任链执行，StatisticSlot entry()是放在最后执行的
              */
             fireEntry(context, resourceWrapper , node, count, args);
+
+            /*
+             * 计算资源节点（DefaultNode）的线程数和通过的请求数
+             * 线程数直接加1
+             * 请求数需要在当前时间窗口加1，具体实现是参考ArrayMetric
+             */
             node.increaseThreadNum();
             node.addPassRequest();
 
             if (context.getCurEntry().getOriginNode() != null) {
+                /*
+                 * 计算调用者节点的线程数和通过请求
+                 */
                 context.getCurEntry().getOriginNode().increaseThreadNum();
                 context.getCurEntry().getOriginNode().addPassRequest();
             }
@@ -74,6 +82,13 @@ public class StatisticSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
                 Constants.ENTRY_NODE.addPassRequest();
             }
 
+            /*
+             * pass回调
+             * 所有的回调实例都会被执行
+             * 我们可以通过继承ProcessorSlotEntryCallback来实现我们的pass和block回调逻辑，通过StatisticSlotCallbackRegistry来注册回调实例
+             * 由于每次request的onPass都会回调所有的已注册的callback实例，所以我们应该尽量避免callback实现太耗时的逻辑
+             * 如果有特定业务的回调最好还是在回调方法根据参数做隔离
+             */
             for (ProcessorSlotEntryCallback<DefaultNode> handler : StatisticSlotCallbackRegistry.getEntryCallbacks()) {
                 handler.onPass(context, resourceWrapper, node, count, args);
             }
@@ -95,7 +110,7 @@ public class StatisticSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
                 Constants.ENTRY_NODE.increaseBlockQps();
             }
 
-            //失败回调
+            //失败回调，参考onPass回调
             for (ProcessorSlotEntryCallback<DefaultNode> handler : StatisticSlotCallbackRegistry.getEntryCallbacks()) {
                 handler.onBlocked(e, context, resourceWrapper, node, count, args);
             }
@@ -104,7 +119,6 @@ public class StatisticSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
         } catch (Throwable e) {
             /*
              * 非BlockException异常情况统计
-             * 一般是业务异常，这种情况下没有失败回调
              */
 
             context.getCurEntry().setError(e);
@@ -122,13 +136,19 @@ public class StatisticSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
         }
     }
 
+
+    /**
+     * 主要计算rt和减少node的线程数
+     * rt的计算包含了success请求的计数和执行时间的累计，参考{@link com.alibaba.csp.sentinel.node.StatisticNode#rt(long)}
+     * @param context         current {@link Context}
+     * @param resourceWrapper current resource
+     * @param count           tokens needed
+     * @param args            parameters of the original call
+     */
     @Override
     public void exit(Context context, ResourceWrapper resourceWrapper, int count, Object... args) {
         DefaultNode node = (DefaultNode)context.getCurNode();
 
-        /*
-         * 抛出BlockException才会context.getCurEntry().getError()!=null
-         */
         if (context.getCurEntry().getError() == null) {
             long rt = TimeUtil.currentTimeMillis() - context.getCurEntry().getCreateTime();
             if (rt > Constants.TIME_DROP_VALVE) {
@@ -154,6 +174,7 @@ public class StatisticSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
             // Error may happen.
         }
 
+        //执行exit回调，类似于entry回调（ProcessorSlotEntryCallback）
         Collection<ProcessorSlotExitCallback> exitCallbacks = StatisticSlotCallbackRegistry.getExitCallbacks();
         for (ProcessorSlotExitCallback handler : exitCallbacks) {
             handler.onExit(context, resourceWrapper, count, args);

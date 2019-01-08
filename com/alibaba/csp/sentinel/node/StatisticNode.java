@@ -15,15 +15,15 @@
  */
 package com.alibaba.csp.sentinel.node;
 
+import com.alibaba.csp.sentinel.node.metric.MetricNode;
+import com.alibaba.csp.sentinel.slots.statistic.metric.ArrayMetric;
+import com.alibaba.csp.sentinel.slots.statistic.metric.Metric;
+import com.alibaba.csp.sentinel.util.TimeUtil;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import com.alibaba.csp.sentinel.util.TimeUtil;
-import com.alibaba.csp.sentinel.node.metric.MetricNode;
-import com.alibaba.csp.sentinel.slots.statistic.metric.ArrayMetric;
-import com.alibaba.csp.sentinel.slots.statistic.metric.Metric;
 
 /**
  * @author qinan.qn
@@ -31,6 +31,11 @@ import com.alibaba.csp.sentinel.slots.statistic.metric.Metric;
  */
 public class StatisticNode implements Node {
 
+    /**
+     * 创建秒级统计数组，默认创建一个2个500ms的数据窗口
+     *
+     * 主要实现{@link ArrayMetric}
+     */
     private transient volatile Metric rollingCounterInSecond = new ArrayMetric(1000 / SampleCountProperty.SAMPLE_COUNT,
         IntervalProperty.INTERVAL);
 

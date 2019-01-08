@@ -38,7 +38,7 @@ class CtEntry extends Entry {
 
     /**
      * 创建CtEntry对象主要做了两件事
-     * 1、设置成员变量context、chain
+     * 1、初始化上下文context，执行链chain
      * 2、更新entry链（成员变量parent，child）
      * 3、设置context的当前entry
      * @param resourceWrapper
@@ -71,17 +71,36 @@ class CtEntry extends Entry {
         context.setCurEntry(this);
     }
 
+    /**
+     * 退出逻辑
+     * @param count tokens to release.
+     * @param args
+     * @throws ErrorEntryFreeException
+     */
     @Override
     public void exit(int count, Object... args) throws ErrorEntryFreeException {
         trueExit(count, args);
     }
 
+    /**
+     * 退出资源
+     *
+     * @param context
+     * @param count
+     * @param args
+     * @throws ErrorEntryFreeException
+     */
     protected void exitForContext(Context context, int count, Object... args) throws ErrorEntryFreeException {
         if (context != null) {
             // Null context should exit without clean-up.
             if (context instanceof NullContext) {
                 return;
             }
+            /*
+             * 如果当前entry不是context的curEntry
+             * 清除entry链并抛出异常
+             * 清除操作其实就是调用entry的exit方法
+             */
             if (context.getCurEntry() != this) {
                 String curEntryNameInContext = context.getCurEntry() == null ? null : context.getCurEntry().getResourceWrapper().getName();
                 // Clean previous call stack.
@@ -94,14 +113,21 @@ class CtEntry extends Entry {
                     + ", current entry in context: <%s>, but expected: <%s>", curEntryNameInContext, resourceWrapper.getName());
                 throw new ErrorEntryFreeException(errorMessage);
             } else {
+                /*
+                 * 如果执行链为空
+                 * 会逐个调用Slot的exit()
+                 * 默认只有StatisticSlot实现了exit()
+                 */
                 if (chain != null) {
                     chain.exit(context, resourceWrapper, count, args);
                 }
+
                 // Restore the call stack.
                 context.setCurEntry(parent);
                 if (parent != null) {
                     ((CtEntry)parent).child = null;
                 }
+                //如果不存在parent就会销毁context
                 if (parent == null) {
                     // Default context (auto entered) will be exited automatically.
                     if (ContextUtil.isDefaultContext(context)) {
@@ -109,6 +135,7 @@ class CtEntry extends Entry {
                     }
                 }
                 // Clean the reference of context in current entry to avoid duplicate exit.
+                //set context=null
                 clearEntryContext();
             }
         }
@@ -118,6 +145,13 @@ class CtEntry extends Entry {
         this.context = null;
     }
 
+    /**
+     * 执行退出操作并返回上一级entry对象parent
+     * @param count tokens to release.
+     * @param args
+     * @return
+     * @throws ErrorEntryFreeException
+     */
     @Override
     protected Entry trueExit(int count, Object... args) throws ErrorEntryFreeException {
         exitForContext(context, count, args);

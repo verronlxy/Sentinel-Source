@@ -15,12 +15,12 @@
  */
 package com.alibaba.csp.sentinel.slots.statistic.base;
 
+import com.alibaba.csp.sentinel.util.TimeUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.concurrent.locks.ReentrantLock;
-
-import com.alibaba.csp.sentinel.util.TimeUtil;
 
 /**
  * <p>
@@ -36,6 +36,17 @@ import com.alibaba.csp.sentinel.util.TimeUtil;
  * @author jialiang.linjl
  * @author Eric Zhao
  * @author CarpenterLee
+ */
+
+/**
+ * LeapArray将时间按固定长度切分成一个一个的window，每个window都是一个WindowWrap对象,数据则存放在WindowWrap
+ * {@link #windowLengthInMs} window的单位时长，单位ms，构造方式指定
+ * {@link #intervalInMs} 分割的总时长，单位ms，构造方式指定
+ * {@link #sampleCount} window的数量，计算方式intervalInMs/windowLengthInMs
+ * {@link #array}存储数据的数组，采用的是线程安全的AtomicReferenceArray，存储的数据是WindowWrap
+ *
+ * LeapArray使用 currentMs/windowLengthInMs作为窗口的id（记为timeId)
+ * 通过timeId来进行寻址（定位数据的下标），寻址的方式是idx = timeId % array.length()
  */
 public abstract class LeapArray<T> {
 
@@ -91,6 +102,9 @@ public abstract class LeapArray<T> {
      * @param time a valid timestamp
      * @return the window at provided timestamp
      */
+    /**
+     * 根据时间获取数据窗口
+     */
     public WindowWrap<T> currentWindow(long time) {
         //每个windowLengthInMs间隔timeId新增1
         long timeId = time / windowLengthInMs;
@@ -99,7 +113,7 @@ public abstract class LeapArray<T> {
 
         // Cut the time to current window start.
         /*
-         * 计算窗口的开始时间,窗口的开始时间是windowLengthInMs的整数倍，采取较小原则，所以是time - time % windowLengthInMs
+         * 计算窗口的开始时间点（ms）,窗口的开始时间是windowLengthInMs的整数倍，采取较小原则，所以是time - time % windowLengthInMs
          */
         time = time - time % windowLengthInMs;
 
@@ -114,7 +128,13 @@ public abstract class LeapArray<T> {
                 }
             } else if (time == old.windowStart()) {
                 return old;
-            } else if (time > old.windowStart()) {
+            }
+            /*
+             * 时间起点不对齐则重置数据窗口
+             * 这里没有做二次检查，时间可能会造成多次重置数据窗口
+             * 应该在lock以后，再获取 WindowWrap<T> old = array.get(idx); old，进行time == old.windowStart()
+             */
+            else if (time > old.windowStart()) {
                 if (updateLock.tryLock()) {
                     try {
                         // if (old is deprecated) then [LOCK] resetTo currentTime.
@@ -126,23 +146,36 @@ public abstract class LeapArray<T> {
                     Thread.yield();
                 }
 
-            } else if (time < old.windowStart()) {
+            }
+            //正常情况下不会执行到这里
+            else if (time < old.windowStart()) {
                 // Cannot go through here.
                 return new WindowWrap<T>(windowLengthInMs, time, newEmptyBucket());
             }
         }
     }
 
+    /**
+     * 根据时间获取前一个数据窗口
+     * @param time
+     * @return
+     */
     public WindowWrap<T> getPreviousWindow(long time) {
         long timeId = (time - windowLengthInMs) / windowLengthInMs;
         int idx = (int)(timeId % array.length());
         time = time - windowLengthInMs;
         WindowWrap<T> wrap = array.get(idx);
 
+        /*
+         * 无效窗口
+         */
         if (wrap == null || isWindowDeprecated(wrap)) {
             return null;
         }
 
+        /*
+         * 无效窗口
+         */
         if (wrap.windowStart() + windowLengthInMs < (time)) {
             return null;
         }
@@ -166,6 +199,11 @@ public abstract class LeapArray<T> {
         return old.value();
     }
 
+    /**
+     * 检测窗口是否已经被启用
+     * @param windowWrap
+     * @return
+     */
     private boolean isWindowDeprecated(WindowWrap<T> windowWrap) {
         return TimeUtil.currentTimeMillis() - windowWrap.windowStart() >= intervalInMs;
     }
