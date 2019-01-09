@@ -19,6 +19,7 @@ import com.alibaba.csp.sentinel.Constants;
 import com.alibaba.csp.sentinel.EntryType;
 import com.alibaba.csp.sentinel.context.Context;
 import com.alibaba.csp.sentinel.node.DefaultNode;
+import com.alibaba.csp.sentinel.node.StatisticNode;
 import com.alibaba.csp.sentinel.slotchain.AbstractLinkedProcessorSlot;
 import com.alibaba.csp.sentinel.slotchain.ProcessorSlotEntryCallback;
 import com.alibaba.csp.sentinel.slotchain.ProcessorSlotExitCallback;
@@ -124,6 +125,11 @@ public class StatisticSlot extends AbstractLinkedProcessorSlot<DefaultNode> {
             context.getCurEntry().setError(e);
 
             // Should not happen
+            /**
+             * 此处的Throwable不会触发？
+             * 如果是自己实现回调逻辑，是有可能会抛出异常的，
+             * 如果此处的catch被触发到，那么{@link StatisticNode#totalRequest()}就不是正确的，正确的应该是totalRequest=pass+block+exception
+             */
             node.increaseExceptionQps();
             if (context.getCurEntry().getOriginNode() != null) {
                 context.getCurEntry().getOriginNode().increaseExceptionQps();

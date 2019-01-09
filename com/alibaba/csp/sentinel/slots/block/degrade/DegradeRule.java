@@ -19,6 +19,7 @@ import com.alibaba.csp.sentinel.concurrent.NamedThreadFactory;
 import com.alibaba.csp.sentinel.context.Context;
 import com.alibaba.csp.sentinel.node.ClusterNode;
 import com.alibaba.csp.sentinel.node.DefaultNode;
+import com.alibaba.csp.sentinel.slotchain.ResourceWrapper;
 import com.alibaba.csp.sentinel.slots.block.AbstractRule;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.clusterbuilder.ClusterBuilderSlot;
@@ -218,6 +219,12 @@ public class DegradeRule extends AbstractRule {
                 return true;
             }
 
+            /**
+             * 此处应该有误？success应该不包含exception，如果
+             * success的计算参考
+             * {@link com.alibaba.csp.sentinel.slots.statistic.StatisticSlot#exit(Context, ResourceWrapper, int, Object...)}
+             * {@link com.alibaba.csp.sentinel.node.StatisticNode#rt(long)}
+             */
             double realSuccess = success - exception;
             if (realSuccess <= 0 && exception < RT_MAX_EXCEED_N) {
                 return true;

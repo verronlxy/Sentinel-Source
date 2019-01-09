@@ -78,6 +78,10 @@ public class StatisticNode implements Node {
         rollingCounterInSecond = new ArrayMetric(1000 / SampleCountProperty.SAMPLE_COUNT, IntervalProperty.INTERVAL);
     }
 
+    /**
+     * totalRequest计算应该不对？正确应该是totalRequest = pass+block+exception
+     * @return
+     */
     @Override
     public long totalRequest() {
         long totalRequest = rollingCounterInMinute.pass() + rollingCounterInMinute.block();
